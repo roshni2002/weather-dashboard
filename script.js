@@ -10,8 +10,14 @@ async function fetchWeather(location = "") {
 
     try {
         const response = await fetch(url);
+        if (!response.ok) {
+            throw new Error("Invalid location");
+        }
         const data = await response.json();
         const current = data.currentConditions;
+
+        // Update the location title in the current weather section
+        document.getElementById("current-location").innerText = `Current Weather for ${location}`;
 
         // Set background based on conditions
         setDynamicBackground(current.conditions);
@@ -21,8 +27,8 @@ async function fetchWeather(location = "") {
         document.getElementById("gust").innerText = document.getElementById("showGust").checked ? current.windgust ?? "N/A" : "Hidden";
 
         document.getElementById("precip").innerText = `${current.precip ?? 0} mm`;
-        document.getElementById("precipProb").innerText = `${current.precipprob ?? 0}`;
-        document.getElementById("humidity").innerText = `${current.humidity ?? 0}`;
+        document.getElementById("precipProb").innerText = `${current.precipprob ?? 0}%`;
+        document.getElementById("humidity").innerText = `${current.humidity ?? 0}%`;
         document.getElementById("conditions").textContent = current.conditions ?? "N/A";
 
         // Handle Wind Direction and Compass Rotation
@@ -41,6 +47,7 @@ async function fetchWeather(location = "") {
         updateForecast(data.days.slice(0, 5));
     } catch (error) {
         console.error("Error fetching weather data:", error);
+        alert("Invalid location. Please try again.");
     }
 }
 
@@ -48,15 +55,15 @@ function setDynamicBackground(condition) {
     const lower = condition.toLowerCase();
 
     if (lower.includes("rain")) {
-        document.body.style.backgroundImage = "url('rainy.jpg')";
+        document.body.style.backgroundImage = "url('images/rainy.jpg')";
     } else if (lower.includes("cloud")) {
-        document.body.style.backgroundImage = "url('cloudy.jpg')";
+        document.body.style.backgroundImage = "url('images/cloudy.jpg')";
     } else if (lower.includes("snow")) {
-        document.body.style.backgroundImage = "url('snowy.jpg')";
+        document.body.style.backgroundImage = "url('images/snowy.jpg')";
     } else if (lower.includes("clear") || lower.includes("sunny")) {
-        document.body.style.backgroundImage = "url('sunny.jpg')";
+        document.body.style.backgroundImage = "url('images/sunny.jpg')";
     } else {
-        document.body.style.backgroundImage = "url('default.jpg')";
+        document.body.style.backgroundImage = "url('images/default.jpg')";
     }
 
     document.body.style.backgroundSize = "cover";
@@ -98,16 +105,16 @@ function updateWindChart(hours) {
                 {
                     label: 'Wind Speed (km/h)',
                     data: windSpeeds,
-                    borderColor: '#1b6717',
-                    backgroundColor: 'rgba(27, 103, 23, 0.1)',
+                    borderColor: '#ff0000', // Red line color
+                    backgroundColor: 'rgba(255, 0, 0, 0.1)', // Light red fill area
                     tension: 0.3,
                     fill: true
                 },
                 {
                     label: 'Wind Gust (km/h)',
                     data: windGusts,
-                    borderColor: '#ff9800',
-                    backgroundColor: 'rgba(255, 152, 0, 0.1)',
+                    borderColor: '#00897b', // Green line color
+                    backgroundColor: 'rgba(0, 137, 123, 0.1)', // Light green fill area
                     tension: 0.3,
                     fill: true
                 }
