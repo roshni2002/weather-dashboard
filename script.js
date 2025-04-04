@@ -55,15 +55,15 @@ function setDynamicBackground(condition) {
     const lower = condition.toLowerCase();
 
     if (lower.includes("rain")) {
-        document.body.style.backgroundImage = "url('images/rainy.jpg')";
+        document.body.style.backgroundImage = "url('rainy.jpg')";
     } else if (lower.includes("cloud")) {
-        document.body.style.backgroundImage = "url('images/cloudy.jpg')";
+        document.body.style.backgroundImage = "url('cloudy.jpg')";
     } else if (lower.includes("snow")) {
-        document.body.style.backgroundImage = "url('images/snowy.jpg')";
+        document.body.style.backgroundImage = "url('snowy.jpg')";
     } else if (lower.includes("clear") || lower.includes("sunny")) {
-        document.body.style.backgroundImage = "url('images/sunny.jpg')";
+        document.body.style.backgroundImage = "url('sunny.jpg')";
     } else {
-        document.body.style.backgroundImage = "url('images/default.jpg')";
+        document.body.style.backgroundImage = "url('default.jpg')";
     }
 
     document.body.style.backgroundSize = "cover";
