@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Weather Dashboard</title>
+  <link rel="stylesheet" href="style.css" />
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+</head>
+<body class="dark-mode">
+
+  <!-- 🌀 Rotating Weather Logo -->
+  <h1><span class="logo-icon">⛅</span> Weather Dashboard</h1>
+
+  <!-- 🔍 Search and Toggle -->
+  <div class="top-controls">
+    <input type="text" id="locationInput" placeholder="Enter location..." />
+    <button onclick="fetchWeather()">Search</button>
+    <button onclick="toggleTheme()">🌗 Toggle Theme</button>
+  </div>
+
+  <!-- ✅ Checkboxes -->
+  <div class="checkboxes">
+    <label><input type="checkbox" id="showTemp" checked /> Show Temperature</label>
+    <label><input type="checkbox" id="showWind" checked /> Show Wind Speed</label>
+    <label><input type="checkbox" id="showGust" checked /> Show Wind Gust</label>
+  </div>
+
+  <!-- 🌤️ Current Weather Section -->
+  <div class="weather-box" id="weatherBox">
+    <h2>Current Weather</h2>
+    <p>🌡️ Temp: <span id="temp">--</span>°C</p>
+    <p>💨 Wind Speed: <span id="wind">--</span> km/h</p>
+    <p>🌬️ Wind Gust: <span id="gust">--</span> km/h</p>
+    <div class="wind-direction">
+      <p>🧭 Wind Direction: <span id="winddir">--</span></p>
+      <div class="wind-compass">
+        <img id="windCompass" src="compass.svg" alt="Compass" />
+      </div>
+    </div>
+    <p>🌧️ Precipitation: <span id="precip">--</span></p>
+    <p>🌦️ Precip Probability: <span id="precipProb">--</span>%</p>
+    <p>💧 Humidity: <span id="humidity">--</span>%</p>
+    <p>☁️ Conditions: <span id="conditions">--</span></p>
+  </div>
+
+  <!-- 📊 Hourly Wind Speed Table -->
+  <h2>Hourly Wind Speed & Gusts</h2>
+  <div class="weather-table-container">
+    <table class="weather-table">
+      <thead>
+        <tr>
+          <th>Time</th>
+          <th>Wind Speed (km/h)</th>
+          <th>Wind Gust (km/h)</th>
+        </tr>
+      </thead>
+      <tbody id="windTableBody"></tbody>
+    </table>
+  </div>
+
+  <!-- 📈 Wind Chart -->
+  <div class="graph-container">
+    <canvas id="windChart" width="400" height="200"></canvas>
+  </div>
+
+  <!-- 🗓️ Forecast Section -->
+  <h2>5-Day Forecast</h2>
+  <div class="forecast-controls">
+    <button onclick="exportForecastToCSV()">📄 Export CSV</button>
+    <button onclick="exportForecastToPDF()">🧾 Export PDF</button>
+  </div>
+
+  <div class="forecast-container" id="forecastContainer"></div>
+
+  <!-- 🔗 Script -->
+  <script src="script.js"></script>
+</body>
+</html>
